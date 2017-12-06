@@ -41,7 +41,7 @@ class rectangle(Turtle):
 rect1 = rectangle(1,100,100)
 rect1.random_color()
 
-mainloop()
+
 
 
 
@@ -68,7 +68,7 @@ mainloop()
 #exercise 2
 class Hexagon (Turtle):
 	def __init__(self,hex):
-		Turtle.__init__(self)
+		Turtle. __init__(self)
 		turtle.home()
 		turtle.begin_poly()
 		turtle.forward(70)
