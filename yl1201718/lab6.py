@@ -11,13 +11,31 @@ class Ball(Turtle):
 		self.radius = radius
 		self.color(color)
 		self.speed(speed)
+		self.pu()
 		self.x = x
 		self.y = y
+		self.goto(x,y)
+
+	def check_bor(self):
+		if self.xcor() > 150:
+			self.hideturtle()
+			print("You cant see your ball")
+
+		if self.xcor() < -150:
+			self.hideturtle()
+			print("You cant see your ball")
+
+		if self.ycor() > 150 :
+			self.hideturtle()
+			print("You cant see your ball")
+
+		if self.ycor() < -150 :
+			self.hideturtle()
+			print("You cant see your ball")
+
 
 	
 
-ball1 = Ball(100,100,12,"pink", 12)
-ball2 = Ball(0,0,20, "orange", 6)
 
 
 def check_collision(ball1, ball2):
@@ -35,7 +53,13 @@ def check_collision(ball1, ball2):
 		print("my name is jeff")
 
 
+#the pink ball should disapear but it doesnt
 
+ball1 = Ball(250,100,12,"pink", 1)
+ball2 = Ball(100,100,20, "orange", 2)
+
+#ball1.goto(250,100)
+#ball2.goto(-250,-100)
 
 check_collision(ball1, ball2)
 
