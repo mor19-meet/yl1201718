@@ -5,9 +5,9 @@ import turtle
 #	turtle.right(144)
 
 #mission 2
-#turtle.register_shape("DownArrow",((0,0),(-25,30),(-25,55),(25,55),(25,30),(0,0)))
-#turtle.shape("DownArrow")
-#turtle.getshapes()
+turtle.register_shape("DownArrow",((0,0),(-25,30),(-25,55),(25,55),(25,30),(0,0)))
+turtle.shape("DownArrow")
+turtle.getshapes()
 
 
 
