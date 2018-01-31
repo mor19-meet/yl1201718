@@ -6,7 +6,7 @@ import math
 colormode(255
 
 
-turtle.tracer(0, 0)
+turtle.tracer(0,0)
 turtle.hideturtle()
 
 RUNNING = True
@@ -28,7 +28,7 @@ MINIMUM_BALL_RADIUS = 10
 MAXIMUM_BALL_RADIUS = 10
 
 
-#make sure dy and dx are never 0!!!
+
 MINIMUM_BALL_DX = -5
 MAXIMUM_BALL_DX = 5
 
@@ -45,6 +45,7 @@ for i in range (NUMBER_OF_BALLS):
 	radius = random.randint(- MINIMUM_BALL_RADIUS , MAXIMUM_BALL_RADIUS)
 	color = (random.random(), random.random(), random.random())
 
+#make sure dy and dx are never 0:
 while dx == 0:
 	dx = random.randint(- MINIMUM_BALL_DX , MAXIMUM_BALL_DX)
 
@@ -145,13 +146,28 @@ def movearound(event):
 	MY_BALL.goto(X_coordinate , Y_coordinate)
 
 
-#part 5.1 : move it!
-
+#part 5.1 : move it!:
 turtle.getcanvas().bind("<Motion>", movearound)
 listen()
 
 
-#part 6 : the while loop
+#part 6 : the while loop:
+while RUNNING == True:
+	if SCREEN_WIDTH != turtle.getcanvas().winfo_width()/2:
+		SCREEN_WIDTH = turtle.getcanvas().winfo_width()/2
+
+	if SCREEN_HEIGHT != turtle.getcanvas().winfo_height()/2:
+		SCREEN_HEIGHT = turtle.getcanvas().winfo_height()/2
+
+	move_all_balls()
+	check_all_balls_collision()
+	movearound(MY_BALL)
+	check_myball_collision()
+
+
+# missions 5 + 6 are not complited!!!!!
+	
+	time.SLEEP()
 
 
 	
