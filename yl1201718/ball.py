@@ -11,8 +11,8 @@ class Ball(Turtle):
 		self.r = r
 
 		self.color(color)
-		turtle.pu()
-		turtle.goto(x,y)
+		self.pu()
+		self.goto(x,y)
 		self.shape("circle")
 		self.shapesize(r/10)
 
