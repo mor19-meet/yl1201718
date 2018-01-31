@@ -89,8 +89,8 @@ def check_all_balls_collision():
 				g = random.randint(0,255)
 				b = random.randint(0,255)
 
-				X_coordinate = random.randint(- SCREEN_WIDTH + random_ball.r , SCREEN_WIDTH - random_ball.r ) 
-				Y_coordinate = random.randint( - SCREEN_HEIGHT + random_ball.r , SCREEN_HEIGHT - random_ball.r)
+				X_coordinate = random.randint(- SCREEN_WIDTH + MAXIMUM_BALL_RADIUS , SCREEN_WIDTH - MAXIMUM_BALL_RADIUS) 
+				Y_coordinate = random.randint( - SCREEN_HEIGHT + MAXIMUM_BALL_RADIUS , SCREEN_HEIGHT - MAXIMUM_BALL_RADIUS)
 				radius = random.randint(MINIMUM_BALL_RADIUS , MAXIMUM_BALL_RADIUS)
 				color = (r,g,b)
 				X_axis_speed = random.randint(MINIMUM_BALL_DX , MAXIMUM_BALL_DX)
@@ -103,6 +103,7 @@ def check_all_balls_collision():
 					Y_axis_speed = random.randint(MINIMUM_BALL_DY , MAXIMUM_BALL_DY)
 
 				if radius_a > radius_b:
+					ball_b.goto(X_coordinate , Y_coordinate)
 					ball_b.x = X_coordinate
 					ball_b.y = Y_coordinate
 					ball_b.dx = X_axis_speed
@@ -113,6 +114,7 @@ def check_all_balls_collision():
 					ball_a.r = ball_a.r + 1
 
 				else:
+					ball_b.goto(X_coordinate , Y_coordinate)
 					ball_a.x = X_coordinate
 					ball_a.y = Y_coordinate
 					ball_a.dx = X_axis_speed
@@ -134,15 +136,27 @@ def check_myball_collision():
 			if radius_random_ball > radius_MY_BALL:
 				return(False)
 
-				MY_BALL = Ball(X_coordinate , Y_coordinate , X_axis_speed , Y_axis_speed , radius , color)
+				MY_BALL.goto(X_coordinate , Y_coordinate)
+				MY_BALL.x = X_coordinate
+				MY_BALL.y = Y_coordinate
+				MY_BALL.dx = X_axis_speed
+				MY_BALL.dy = Y_axis_speed
+				MY_BALL.r = radius
+				MY_BALL.color = color
 				MY_BALL.shapesize = (ball_b.r / 10)
 				random_ball.r = ball_a.r + 1
 
-			if radius_random_ball < radius_MY_BALL:
-				random_ball = Ball(X_coordinate , Y_coordinate , X_axis_speed , Y_axis_speed , radius , color)
+			if radius_MY_BALL > radius_random_ball:
+				random_ball.goto(X_coordinate , Y_coordinate)
+				random_ball.x = X_coordinate
+				random_ball.y = Y_coordinate
+				random_ball.dx = X_axis_speed
+				random_ball.dy = Y_axis_speed
+				random_ball.r = radius
+				random_ball.color = color
 				random_ball.shapesize = (ball_b.r / 10)
 				MY_BALL.r = ball_a.r + 1
-				return(True)
+	return(True)
 
 
 #part 5: movearound
@@ -155,8 +169,8 @@ def movearound(event):
 
 
 #part 5.1 : move it!:
-turtle.getcanvas().bind("<Motion>", movearound)
-turtle.listen()
+turtle.Screen().getcanvas().bind("<Motion>", movearound)
+turtle.getscreen().listen()
 
 #part 6 : the while loop:
 while RUNNING == True:
@@ -169,9 +183,10 @@ while RUNNING == True:
 	move_all_balls()
 	check_all_balls_collision()
 	check_myball_collision()
+	MY_BALL.move(SCREEN_WIDTH , SCREEN_HEIGHT)
 
-	if check_myball_collision == False:
-		RUNNING = False
+	RUNNING = check_myball_collision()
+		
 
 	turtle.getscreen().update()
 	time.sleep(1/60)
