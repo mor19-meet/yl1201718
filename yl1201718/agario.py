@@ -171,7 +171,7 @@ def check_myball_collision():
 				random_ball.color = "color"
 
 				MY_BALL.shapesize = (MY_BALL.r / 10)
-				MY_BALL.r = ball_a.r + 1
+				MY_BALL.r = ball1.r + 1
 
 	return(True)
 
