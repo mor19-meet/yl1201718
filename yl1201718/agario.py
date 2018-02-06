@@ -41,18 +41,10 @@ for i in range (NUMBER_OF_BALLS):
 	y = random.randint(- SCREEN_HEIGHT + MAXIMUM_BALL_RADIUS , SCREEN_HEIGHT - MAXIMUM_BALL_RADIUS)
 	dx = random.randint(MINIMUM_BALL_DX , MAXIMUM_BALL_DX)
 	dy = random.randint(MINIMUM_BALL_DY , MAXIMUM_BALL_DY)
-	radius = random.randint(MINIMUM_BALL_RADIUS , MAXIMUM_BALL_RADIUS)
+	r = random.randint(MINIMUM_BALL_RADIUS , MAXIMUM_BALL_RADIUS)
 	color = (random.randint(0,255), random.randint(0,255), random.randint(0,255))
 
-#make sure dy and dx are never 0:
-	while dx == 0:
-		dx = random.randint(- MINIMUM_BALL_DX , MAXIMUM_BALL_DX)
-
-	while dy == 0:
-		dy = random.randint(- MINIMUM_BALL_DY , MAXIMUM_BALL_DY)
-	
-
-	new_ball = Ball(x,y,dx,dy,radius,color)
+	new_ball = Ball(x,y,dx,dy,r,color)
 	BALLS.append(new_ball)
 
 
@@ -72,7 +64,6 @@ def collide(ball_a , ball_b):
 
 	if ((d) <= (ball_a.r + ball_b.r)):
 		return True
-
 	else:
 		return False
 
@@ -82,34 +73,30 @@ def check_all_balls_collision():
 		for ball_b in BALLS:
 			if collide(ball_a , ball_b) == True:
 
-				radius_a = ball_a.r
-				radius_b = ball_b.r
+				ball_a_radius = ball_a.r
+				ball_b_radius = ball_b.r
 
-				if ball_a.r > ball_b.r:
+				if ball_a_radius > ball_b_radius:
 					ball_a.r += 1
-
-				if ball_b.r > ball_a.r:
+				else:
 					ball_b.r += 1
 
 				X_coordinate = random.randint(round(-SCREEN_WIDTH), round(SCREEN_WIDTH)) 
 				Y_coordinate = random.randint(round(-SCREEN_HEIGHT), round(SCREEN_HEIGHT))
-				radius = random.randint(MINIMUM_BALL_RADIUS , MAXIMUM_BALL_RADIUS)
-				color = color = (random.randint(0,255), random.randint(0,255) , random.randint(0,255))
 				X_axis_speed = 1
 				Y_axis_speed = 1
+
+				while (X_axis_speed == 0 and Y_axis_speed == 0):
+					X_axis_speed = random.randint(MINIMUM_BALL_DX , MAXIMUM_BALL_DX)
+					Y_axis_speed = random.randint(MINIMUM_BALL_DY , MAXIMUM_BALL_DY)
+
+				radius = random.randint(MINIMUM_BALL_RADIUS , MAXIMUM_BALL_RADIUS)
+				color = (random.randint(0,255), random.randint(0,255) , random.randint(0,255))
 				print(radius)
 				print(color)
 
-				while X_axis_speed == 0:
-					X_axis_speed = random.randint(MINIMUM_BALL_DX , MAXIMUM_BALL_DX)
-
-				while Y_axis_speed == 0:
-					Y_axis_speed = random.randint(MINIMUM_BALL_DY , MAXIMUM_BALL_DY)
-
 				if ball_a.r > ball_b.r:
 					ball_b.goto(X_coordinate , Y_coordinate)
-					ball_b.x = X_coordinate
-					ball_b.y = Y_coordinate
 					ball_b.dx = X_axis_speed
 					ball_b.dy = Y_axis_speed
 					ball_b.r = radius
@@ -121,8 +108,6 @@ def check_all_balls_collision():
 
 				else:
 					ball_a.goto(X_coordinate , Y_coordinate)
-					ball_a.x = X_coordinate
-					ball_a.y = Y_coordinate
 					ball_a.dx = X_axis_speed
 					ball_a.dy = Y_axis_speed
 					ball_a.r = radius
@@ -137,108 +122,38 @@ def check_all_balls_collision():
 def check_myball_collision():
 	for new_ball in BALLS:
 		if collide(MY_BALL , new_ball) == True:
-			new_ball.r = radius_new_ball4
-			MY_BALL.r = radius_MY_BALL4
+			r_new_ball= new_ball.r
+			r_MY_BALL = MY_BALL.r
+			print "123"
+			if r_MY_BALL > r_new_ball:
+				return False
 
-			if MY_BALL.r > new_ball.r:
-					MY_BALL.r += 1
+			X_coordinate = random.randint(round(-SCREEN_WIDTH), round(SCREEN_WIDTH)) 
+			Y_coordinate = random.randint(round(-SCREEN_HEIGHT), round(SCREEN_HEIGHT))
+			X_axis_speed = 1
+			Y_axis_speed = 1
+				
 
-				if new_ball.r > MY_BALL.r:
-					new_ball.r += 1
+			while X_axis_speed == 0 or Y_axis_speed:
+				X_axis_speed = random.randint(MINIMUM_BALL_DX , MAXIMUM_BALL_DX)
+				Y_axis_speed = random.randint(MINIMUM_BALL_DY , MAXIMUM_BALL_DY)
 
-				X_coordinate = random.randint(round(-SCREEN_WIDTH), round(SCREEN_WIDTH)) 
-				Y_coordinate = random.randint(round(-SCREEN_HEIGHT), round(SCREEN_HEIGHT))
-				radius = random.randint(MINIMUM_BALL_RADIUS , MAXIMUM_BALL_RADIUS)
-				color = color = (random.randint(0,255), random.randint(0,255) , random.randint(0,255))
-				X_axis_speed = 1
-				Y_axis_speed = 1
-				print(radius)
-				print(color)
+			radius = random.randint(MINIMUM_BALL_RADIUS , MAXIMUM_BALL_RADIUS)
+			color = color = (random.randint(0,255), random.randint(0,255) , random.randint(0,255))
+			print(radius)
+			print(color)
 
-				while X_axis_speed == 0:
-					X_axis_speed = random.randint(MINIMUM_BALL_DX , MAXIMUM_BALL_DX)
+			new_ball.goto(X_coordinate , Y_coordinate)
+			new_ball.dx = X_axis_speed
+			new_ball.dy = Y_axis_speed
+			new_ball.r = radius
+			new_ball.color(color)
+			new_ball.shapesize(new_ball.r/10)
 
-				while Y_axis_speed == 0:
-					Y_axis_speed = random.randint(MINIMUM_BALL_DY , MAXIMUM_BALL_DY)
-
-				if MY_BALL.r > new_ball.r:
-					new_ball.goto(X_coordinate , Y_coordinate)
-					new_ball.x = X_coordinate
-					new_ball.y = Y_coordinate
-					new_ball.dx = X_axis_speed
-					new_ball.dy = Y_axis_speed
-					new_ball.r = radius
-					new_ball.color(color)
-					new_ball.shapesize(ball_b.r/10)
-
-					MY_BALL.shapesize(ball_a.r / 10)
-					MY_BALL.r = ball_a.r + 1
-
-				else:
-					MY_BALL.goto(X_coordinate , Y_coordinate)
-					MY_BALL.x = X_coordinate
-					MY_BALL.y = Y_coordinate
-					MY_BALL.dx = X_axis_speed
-					MY_BALL.dy = Y_axis_speed
-					MY_BALL.r = radius
-					MY_BALL.color(color)
-					MY_BALL.shapesize(ball_a.r/10)
-
-					new_ball.shapesize(ball_b.r/10)
-					new_ball.r = ball_b.r + 1
-
-			# if MY_BALL.r < new_ball.r:
-			# 	return False
-
-			# 	X_coordinate = random.randint(round(-SCREEN_WIDTH), round(SCREEN_WIDTH)) 
-			# 	Y_coordinate = random.randint(round(-SCREEN_HEIGHT), round(SCREEN_HEIGHT))
-			# 	radius = random.randint(MINIMUM_BALL_RADIUS , MAXIMUM_BALL_RADIUS)
-			# 	color = (random.randint(0,255), random.randint(0,255) , random.randint(0,255))
-			# 	X_axis_speed = 1
-			# 	Y_axis_speed = 1
-
-			# 	while X_axis_speed == 0 and Y_axis_speed == 0:
-			# 		X_axis_speed = random.randint(MINIMUM_BALL_DX , MAXIMUM_BALL_DX)
-			# 		Y_axis_speed = random.randint(MINIMUM_BALL_DY , MAXIMUM_BALL_DY)
-
-			# 	new_ball.goto(X_coordinate , Y_coordinate)
-			# 	new_ball.x = X_coordinate
-			# 	new_ball.y = Y_coordinate
-			# 	new_ball.dx = X_axis_speed
-			# 	new_ball.dy = Y_axis_speed
-			# 	new_ball.r = radius
-			# 	new_ball.color(color)
-			# 	new_ball.shapesize(new_ball.r/10)
-
-			# 	MY_BALL.shapesize(MY_BALL.r/10)
-			# 	MY_BALL.r = MY_BALL.r + 1
-
-			# if MY_BALL.r > new_ball.r:
-			# 	X_coordinate = random.randint(round(-SCREEN_WIDTH), round(SCREEN_WIDTH)) 
-			# 	Y_coordinate = random.randint(round(-SCREEN_HEIGHT), round(SCREEN_HEIGHT))
-			# 	radius = random.randint(MINIMUM_BALL_RADIUS , MAXIMUM_BALL_RADIUS)
-			# 	color = (random.randint(0,255), random.randint(0,255) , random.randint(0,255))
-			# 	X_axis_speed = random.randint(MINIMUM_BALL_DX , MAXIMUM_BALL_DX)
-			# 	Y_axis_speed = random.randint(MINIMUM_BALL_DY , MAXIMUM_BALL_DY)
-
-			# 	while X_axis_speed == 0 and Y_axis_speed == 0:
-			# 		X_axis_speed = random.randint(MINIMUM_BALL_DX , MAXIMUM_BALL_DX)
-			# 		Y_axis_speed = random.randint(MINIMUM_BALL_DY , MAXIMUM_BALL_DY)
-
-			# 	MY_BALL.goto(X_coordinate , Y_coordinate)
-			# 	MY_BALL.x = X_coordinate
-			# 	MY_BALL.y = Y_coordinate
-			# 	MY_BALL.dx = X_axis_speed
-			# 	MY_BALL.dy = Y_axis_speed
-			# 	MY_BALL.r = radius
-			# 	MY_BALL.color(color)
-			# 	MY_BALL.shapesize(MY_BALL.r/10)
-
-			# 	new_ball.shapesize(new_ball.r/10)
-			# 	new_ball.r = MY_BALL.r + 1
+			MY_BALL.shapesize(MY_BALL.r / 10)
+			MY_BALL.r = MY_BALL.r + 1
 
 
-			
 	return True
 
 
@@ -248,8 +163,6 @@ def movearound(event):
 	X_mouse = event.x - SCREEN_WIDTH
 	Y_mouse = SCREEN_HEIGHT - event.y
 
-	MY_BALL.x = X_mouse
-	MY_BALL.y = Y_mouse
 	MY_BALL.goto(X_mouse , Y_mouse)
 
 
@@ -274,7 +187,7 @@ while RUNNING == True:
 	time.sleep(0.05)
 
 
-
+hideturtle()
 
 
 
