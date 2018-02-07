@@ -21,11 +21,9 @@ class Ball(Turtle):
 		self.screen_height = screen_height
 
 		current_x = self.xcor()
-		current_x = self.x
 		new_x = current_x + self.dx
 
 		current_y = self.ycor()
-		current_y = self.y
 		new_y = current_y + self.dy
 
 		right_side_ball = new_x + self.r
